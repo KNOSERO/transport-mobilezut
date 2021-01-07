@@ -32,11 +32,11 @@ app.get('/:name', async (req, res, next) => {
                     .json(temp);
                 })
                 .catch(() => {
-                    res.status(201).json(null);
+                    res.status(201).json(1);
                 });
         })
         .catch(() => {
-            res.status(201).json(null);
+            res.status(201).json(2);
         });
 });
 
