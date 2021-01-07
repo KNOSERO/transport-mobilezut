@@ -8,8 +8,7 @@ const RestClient = require('./script/restClient');
 
 app.get('/:name', async (req, res, next) => {
 
-    const date = new Date(req.query.date)
-
+    const date = new Date (new Date(req.query.date).getTime() - 1000 * 3600);
     const localization = (lat, lng) => {
         return `${lat}:${lng}`;
     }
@@ -17,7 +16,7 @@ app.get('/:name', async (req, res, next) => {
     const restAPI = new RestClient();
     restAPI.findLocation(req.params.name)
         .then(async result => {
-
+            
             const scraping = new Scraping();
             scraping.setRoutes(
                 'szczecin',

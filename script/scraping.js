@@ -36,7 +36,7 @@ class Scraping {
         /**
          * URL
          */
-        this.url = `https://jakdojade.pl/${this.data.city}/trasa/z--undefined--do--undefined?tc=${this.data.tc}&fc=${this.data.fc}&d=${this.data.d}&h=${this.data.h}&ia=true&aro=1&t=1&rc=3&ri=2&r=0&stopsLayer=true`
+        this.url = `https://jakdojade.pl/${this.data.city}/trasa/z--undefined--do--undefined?tc=${this.data.tc}&fc=${this.data.fc}&ft=LOCATION_TYPE_COORDINATE&tt=LOCATION_TYPE_USER_POINT&d=${this.data.d}&h=${this.data.h}&ia=true&aro=1&t=1&rc=3&ri=2&r=0&stopsLayer=true`
 
         return this;
     }
@@ -98,6 +98,17 @@ class Scraping {
                             .catch(async () => {
                                 resolve('brak');
                             });
+                    })
+                    .catch(async () => {
+                        
+                        //WCIŚNIĘCIĘ PRZYCISKU WSTECZ 
+                        await page.click('div[class="cn-before-after cn-before"]')
+                            .then(async () => {
+                                resolve(page);
+                            })
+                            .catch(async () => {
+                                resolve('brak');
+                            });
                     });
             })
         }
@@ -115,14 +126,15 @@ class Scraping {
 
         const returnHtml = async (index) => {
             return new Promise(async resolve => {
-                if(await this.deley(200)) {
+                if(await this.deley(500)) {
                                     
                     //KLIKANIE NA ELEMENT LISTY
                     const example = await page.$$('div[class="cn-route-header ng-isolate-scope"]');
+                    await this.deley(500)
                     await example[index].click()
                         .then(async () => {
     
-                            if (await this.deley(200)) {
+                            if (await this.deley(500)) {
                                 
                                 //WRZUCANIE NA ZMIENNĄ HTML
                                 const html = await page.content();
