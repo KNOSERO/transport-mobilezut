@@ -1,5 +1,6 @@
 const express = require('express');
 const PORT = process.env.PORT || 3000;
+process.env.TZ = 'Europe/Warsaw'
 const app = express();
 const dateFormat = require("dateformat");
 
@@ -8,7 +9,7 @@ const RestClient = require('./script/restClient');
 
 app.get('/:name', async (req, res, next) => {
 
-    const date = new Date (new Date(req.query.date).getTime() - 1000 * 3600);
+    const date = new Date(new Date(req.query.date));
     const localization = (lat, lng) => {
         return `${lat}:${lng}`;
     }
