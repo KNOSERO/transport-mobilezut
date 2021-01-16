@@ -128,11 +128,11 @@ class Scraping {
             return new Promise(async resolve => {
                 if(await this.deley(500)) {
                                     
-                    
                     //KLIKANIE NA ELEMENT LISTY
                     const example = await page.$$('div[class="cn-route-header ng-isolate-scope"]');
                     await this.deley(500)
-                    await example[index].click()
+                    try {
+                        await example[index].click()
                         .then(async () => {
     
                             if (await this.deley(500)) {
@@ -145,10 +145,10 @@ class Scraping {
                                     resolve(result);
                                 });
                             }
-                        })
-                        .catch(async () => {
-                            resolve('brak');
                         });
+                    } catch(er) {
+                        resolve('brak');
+                    }
                 }
             });
         }
