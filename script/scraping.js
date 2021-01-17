@@ -127,8 +127,12 @@ class Scraping {
         //WYSZUKANIE STRONY
         const browser = await puppeteer.launch({
             headless: true,
+            defaultViewport: null,
             args: [
-                '--no-sandbox',
+                "--incognito",
+                "--no-sandbox",
+                "--single-process",
+                "--no-zygote"
             ],
         });
         const page = await browser.newPage();
