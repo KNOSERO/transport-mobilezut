@@ -83,6 +83,17 @@ class Scraping {
 
         const returnPage = async () => {
             return new Promise(async resolve => {
+
+                await page.setRequestInterception(true);
+
+                page.on('request', (req) => {
+                    if (req.resourceType() == 'font' || req.resourceType() == 'image') {
+                        req.abort();
+                    }
+                    else {
+                        req.continue();
+                    }
+                });
                         
                 await page.goto(this.url);
 
@@ -125,16 +136,16 @@ class Scraping {
 
         const returnHtml = async (index) => {
             return new Promise(async resolve => {
-                if(await this.deley(1000)) {
+                if(await this.deley(200)) {
                                     
                     //KLIKANIE NA ELEMENT LISTY
                     const example = await page.$$('div[class="cn-route-header ng-isolate-scope"]');
-                    await this.deley(1000)
+                    await this.deley(500)
                     try {
                         await example[index].click()
                         .then(async () => {
     
-                            if (await this.deley(1000)) {
+                            if (await this.deley(500)) {
                                 
                                 //WRZUCANIE NA ZMIENNĄ HTML
                                 const html = await page.content();
