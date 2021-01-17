@@ -135,6 +135,7 @@ class Scraping {
                 "--no-zygote"
             ],
         });
+        
         const page = await browser.newPage();
         await returnPage();
 
