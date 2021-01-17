@@ -7,6 +7,7 @@ const dateFormat = require("dateformat");
 const Scraping = require('./script/scraping');
 const RestClient = require('./script/restClient');
 
+
 app.get('/:name', async (req, res, next) => {
 
     const date = new Date(new Date(req.query.date));

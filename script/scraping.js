@@ -115,10 +115,9 @@ class Scraping {
 
         //WYSZUKANIE STRONY
         const browser = await puppeteer.launch({
-            headless: true,
+            headless: false,
             args: [
                 '--no-sandbox',
-                '--disable-setuid-sandbox',
             ],
         });
         const page = await browser.newPage();
@@ -126,16 +125,16 @@ class Scraping {
 
         const returnHtml = async (index) => {
             return new Promise(async resolve => {
-                if(await this.deley(500)) {
+                if(await this.deley(1000)) {
                                     
                     //KLIKANIE NA ELEMENT LISTY
                     const example = await page.$$('div[class="cn-route-header ng-isolate-scope"]');
-                    await this.deley(500)
+                    await this.deley(1000)
                     try {
                         await example[index].click()
                         .then(async () => {
     
-                            if (await this.deley(500)) {
+                            if (await this.deley(1000)) {
                                 
                                 //WRZUCANIE NA ZMIENNĄ HTML
                                 const html = await page.content();
