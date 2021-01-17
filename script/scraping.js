@@ -128,9 +128,11 @@ class Scraping {
         const browser = await puppeteer.launch({
             headless: true,
             args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--single-process',
                 "--incognito",
-                "--no-sandbox",
-                "--single-process",
                 "--no-zygote"
             ],
         });
