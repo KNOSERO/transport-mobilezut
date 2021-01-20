@@ -169,11 +169,11 @@ class Scraping {
             });
         }
 
-        this._result[0] = await returnHtml(1);
+        //this._result[0] = await returnHtml(1);
         this._result[1] = await returnHtml(2);
         this._result[2] = await returnHtml(3);
         this._result[3] = await returnHtml(4);
-        this._result[4] = await returnHtml(5);
+        //this._result[4] = await returnHtml(5);
 
         Promise.all(this._result).then(async () => {
             await browser.close();
